@@ -2,8 +2,7 @@ import React from "react";
 // import * as BooksAPI from './BooksAPI'
 import "./App.css";
 import * as BooksAPI from "./BooksAPI";
-import Shelf from "./Shelf";
-
+import Library from "./Library";
 
 class BooksApp extends React.Component {
   state = {
@@ -28,10 +27,9 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { books } = this.state
+    const { books } = this.state;
     return (
       <div className="app">
-        {" "}
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -43,53 +41,32 @@ class BooksApp extends React.Component {
                   })
                 }
               >
-                Close{" "}
-              </a>{" "}
+                Close
+              </a>
               <div className="search-books-input-wrapper">
-                {" "}
                 {/*
-                              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                              You can find these search terms here:
-                              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+                                          NOTES: The search from BooksAPI is limited to a particular set of search terms.
+                                          You can find these search terms here:
+                                          https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
 
-                              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                              you don't find a specific author or title. Every search is limited by search terms.
-                            */}{" "}
+                                          However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
+                                          you don't find a specific author or title. Every search is limited by search terms.
+                                        */}
                 <input type="text" placeholder="Search by title or author" />
-              </div>{" "}
-            </div>{" "}
+              </div>
+            </div>
             <div className="search-books-results">
               <ol className="books-grid" />
-            </div>{" "}
+            </div>
           </div>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
-              <h1> MyReads </h1>{" "}
-            </div>{" "}
-            <div className="list-books-content">
-              <div>
-                <Shelf 
-                books = {books}
-                title = "Currently Reading"
-                shelfType = "currentlyReading"
-                />
-              </div>
-              <div>
-                <Shelf 
-                books = {books}
-                title = "Want To Read"
-                shelfType = "wantToRead"
-                />
-              </div>
-              <div>
-                <Shelf 
-                books = {books}
-                title = "Read"
-                shelfType = "read"
-                />
-              </div>
-              </div>
+              <h1> MyReads </h1>
+            </div>
+
+            <Library books={books} />
+
             <div className="open-search">
               <a
                 onClick={() =>
@@ -98,11 +75,11 @@ class BooksApp extends React.Component {
                   })
                 }
               >
-                Add a book{" "}
-              </a>{" "}
-            </div>{" "}
+                Add a book
+              </a>
+            </div>
           </div>
-        )}{" "}
+        )}
       </div>
     );
   }
