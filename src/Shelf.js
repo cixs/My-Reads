@@ -1,29 +1,22 @@
 import React from "react";
 import Book from "./Book";
-import * as BooksAPI from "./BooksAPI";
+
 
 //split the UI into independent and reusable 'shelf' components
 
 class Shelf extends React.Component {
-  constructor(props) {
-    super(props);
-    //contain the readingStage property, which may have 1 of 3 values: Currently Reading, Want to Read, Read
-  }
-
-  state = {
-    books: []
-    // an array of books which have the readingStage state equal to this.props.readingStage
-  };
-
   render() {
-    const { books } = this.state;
-    const { read } = this.props.readingStage;
+    const { books, title, shelfType } = this.props;
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title"> {read} </h2>{" "}
+        <h2 className="bookshelf-title"> {title} </h2>{" "}
         <div className="bookshelf-books">
-          <ol className="books-grid" />{" "}
+          <ol className="books-grid">
+            {books
+              .filter(book => book.shelf === shelfType)
+              .map(book => <Book book={book} key = {book.id}/>)}
+          </ol>
         </div>
       </div>
     );
