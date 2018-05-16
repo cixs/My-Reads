@@ -7,17 +7,17 @@ import * as BooksAPI from "./BooksAPI";
 class Shelf extends React.Component {
   constructor(props) {
     super(props);
-    //contain the read property, which may have 1 of 3 values: Currently Reading, Want to Read, Read
+    //contain the readingStage property, which may have 1 of 3 values: Currently Reading, Want to Read, Read
   }
 
   state = {
     books: []
-    // an array of books which have the read state equal to this.props.read
+    // an array of books which have the readingStage state equal to this.props.readingStage
   };
 
   render() {
     const { books } = this.state;
-    const { read } = this.props;
+    const { read } = this.props.readingStage;
 
     return (
       <div className="bookshelf">
