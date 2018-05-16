@@ -1,10 +1,11 @@
 import React from "react";
+import ShelfOptions from "./ShelfOptions";
 
-//split the UI into independent and reusable 'book' components
+//split the UI into independent and reusable 'Book' components
 
 class Book extends React.Component {
   render() {
-    const { book } = this.props;
+    const { book, moveToShelf } = this.props;
 
     return (
       <li>
@@ -17,26 +18,17 @@ class Book extends React.Component {
                 height: 193,
                 backgroundImage: `url(${book.imageLinks.thumbnail})`
               }}
-            />
-            <div className="book-shelf-changer">
-              <select>
-                <option value="none" disabled>
-                  Move to...
-                </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-          </div>
-          <div className="book-title">{book.title}</div>
+            />{" "}
+            <ShelfOptions book={book} moveToShelf={moveToShelf} />{" "}
+          </div>{" "}
+          <div className="book-title"> {book.title} </div>{" "}
           <div className="book-authors">
+            {" "}
             {book.authors.map((author, index) => (
-              <div key={index}>{author}</div>
-            ))}
-          </div>
-        </div>
+              <div key={index}> {author} </div>
+            ))}{" "}
+          </div>{" "}
+        </div>{" "}
       </li>
     );
   }
