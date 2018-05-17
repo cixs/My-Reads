@@ -1,12 +1,14 @@
 import React from "react";
 import BookOptions from "./BookOptions";
+import cover_not_available from './img/cover-not-available.png'
 
 //split the UI into independent and reusable 'Book' components
 
 class Book extends React.Component {
+
   render() {
     const { book, moveToShelf, addToLibrary } = this.props;
-
+    const bkgImage = book.imageLinks && book.imageLinks.thumbnail? `url(${book.imageLinks.thumbnail})`: `url(${cover_not_available})`;
     return (
       <li>
         <div className="book">
@@ -16,7 +18,7 @@ class Book extends React.Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${book.imageLinks.thumbnail})`
+                backgroundImage: bkgImage
               }}
             />
             <BookOptions
@@ -25,11 +27,11 @@ class Book extends React.Component {
               addToLibrary={addToLibrary}
             />
           </div>
-          <div className="book-title"> {book.title} </div>
+          <div className="book-title"> {book.title? book.title: "No title"} </div>
           <div className="book-authors">
-            {book.authors.map((author, index) => (
+            {book.authors? book.authors.map((author, index) => (
               <div key={index}> {author} </div>
-            ))}
+            )):"Unknown author(s)"}
           </div>
         </div>
       </li>

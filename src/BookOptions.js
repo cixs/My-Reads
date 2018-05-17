@@ -11,7 +11,7 @@ class BookOptions extends React.Component {
   };
 
   render() {
-    const { book, moveToShelf, addToLibrary } = this.props;
+    const { book } = this.props;
 
     let actualShelf = book.shelf? book.shelf : "none";
 
