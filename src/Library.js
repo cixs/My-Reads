@@ -1,45 +1,19 @@
 import React from "react";
 import Shelf from "./Shelf";
-import * as BooksAPI from "./BooksAPI";
+
 
 class Library extends React.Component {
   // parent component for Shelves
 
-  // moved books array here, as a state of Library component
-  state = {
-    books: []
-  };
-
-  componentDidMount() {
-    // get books on load
-    BooksAPI.getAll().then(books => {
-      this.setState({
-        books
-      });
-    });
-  }
-
-  moveToShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(response => {
-      // set the new value for book.shelf
-      book.shelf = shelf;
-      // because book is a reference to an element of this.state.books array
-      // at this moment we could say that the state of Library is already modified
-      // then calling setState and passing as argument this.state should corectly render the Library
-      // with all of it's children updated
-      this.setState(this.state.books);
-    });
-  };
-
   render() {
-    const { books } = this.state;
-    const {switchToSearchPage} = this.props;
+    const { books, switchToSearchPage, moveToShelf } = this.props;
 
     const shelves = [
       { content: "currentlyReading", title: "Currently Reading" },
       { content: "wantToRead", title: "Want to Read" },
       { content: "read", title: "Read" }
     ];
+
 
     return (
 
@@ -52,7 +26,7 @@ class Library extends React.Component {
             <Shelf
               books={books.filter(book => book.shelf === shelf.content)}
               title={shelf.title}
-              moveToShelf={this.moveToShelf}
+              moveToShelf={moveToShelf}
               key={shelf.content}
             />
           ))}
