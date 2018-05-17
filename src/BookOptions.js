@@ -4,11 +4,9 @@ class BookOptions extends React.Component {
 
   onShelfChanged = (book, shelf) => {
     const { moveToShelf, addToLibrary } = this.props;
-    if (book.shelf)
-      // book exist in Library
+    if (book.shelf) // these are options for a book that exist in Library
       moveToShelf(book, shelf);
-    // book was not added into Library
-    else 
+    else // these are options for a book in search results
       addToLibrary(book, shelf);
   };
 
@@ -25,12 +23,12 @@ class BookOptions extends React.Component {
         >
           <option value="none" disabled>
             Move to...
-          </option>{" "}
-          <option value="currentlyReading"> Currently Reading </option>{" "}
-          <option value="wantToRead"> Want to Read </option>{" "}
-          <option value="read"> Read </option>{" "}
-          <option value="none"> None </option>{" "}
-        </select>{" "}
+          </option>
+          <option value="currentlyReading"> Currently Reading </option>
+          <option value="wantToRead"> Want to Read </option>
+          <option value="read"> Read </option>
+          <option value="none"> None </option>
+        </select>
       </div>
     );
   }

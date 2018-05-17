@@ -104,6 +104,12 @@ body, .app {
 .search-books-results {
   padding: 80px 10px 20px;
 }
+.search-result-error {
+  padding: 5px 0;
+  background: #d4d4d4;
+  text-align: center;
+  color: #f00
+}
 
 /* books grid */
 
