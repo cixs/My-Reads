@@ -4,27 +4,23 @@ import * as BooksAPI from "./BooksAPI";
 
 class SearchPage extends React.Component {
   state = {
-    query: "",
     books: []
   };
 
   searchBooks = event => {
     const query = event.target.value.trim();
-    this.setState({
-      query: query
-    });
 
     if (query) {
       BooksAPI.search(query).then(books => {
-        this.setState({
-          books: books
-        });
+          this.setState({
+            books: books
+          });
       });
     }
   };
 
   render() {
-    const { query, books } = this.state;
+    const { books } = this.state;
     const { switchToSearchPage, moveToShelf, addToLibrary } = this.props;
 
     return (
@@ -37,7 +33,6 @@ class SearchPage extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={query}
               onChange={this.searchBooks}
             />{" "}
           </div>{" "}

@@ -3,6 +3,7 @@ import React from "react";
 import "./App.css";
 import Library from "./Library";
 import SearchPage from "./SearchPage";
+import SearchButton from "./SearchButton";
 import * as BooksAPI from "./BooksAPI";
 
 class BooksApp extends React.Component {
@@ -26,7 +27,7 @@ class BooksApp extends React.Component {
     });
   }
 
-  switchToSearchPage = (show) => {
+  switchToSearchPage = show => {
     this.setState({
       showSearchPage: show
     });
@@ -35,34 +36,42 @@ class BooksApp extends React.Component {
   moveToShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then(response => {
       // set the new value for book.shelf
-      book.shelf = shelf
+      book.shelf = shelf;
       // because book is a reference to an element of this.state.books array
       // at this moment we could say that the state of Library is already modified
       // then calling setState and passing as argument this.state should corectly render the Library
       // with all of it's children updated
-      this.setState(this.state.books)
+      this.setState(this.state.books);
     });
   };
 
   addToLibrary = (book, shelf) => {
     BooksAPI.update(book, shelf).then(response => {
       // set the  value for book.shelf
-      book.shelf = shelf
-      let books = this.state.books
+      book.shelf = shelf;
+      let books = this.state.books;
       books.push(book);
-      this.setState(books)
+      this.setState(books);
     });
   };
-  render() {
 
-    const{books, showSearchPage} = this.state
+  
+  render() {
+    const { books, showSearchPage } = this.state;
     return (
       <div className="app">
         {showSearchPage ? (
-          <SearchPage switchToSearchPage={this.switchToSearchPage} moveToShelf = {this.moveToShelf } addToLibrary ={this.addToLibrary } />
+          <SearchPage
+            switchToSearchPage={this.switchToSearchPage}
+            moveToShelf={this.moveToShelf}
+            addToLibrary={this.addToLibrary}
+          />
         ) : (
-          <Library  books={books} switchToSearchPage={this.switchToSearchPage} moveToShelf ={this.moveToShelf } />
-        )} 
+          <div>
+            <Library books={books} moveToShelf={this.moveToShelf} />
+            <SearchButton switchToSearchPage={this.switchToSearchPage} />
+          </div>
+        )}
       </div>
     );
   }

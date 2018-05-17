@@ -6,7 +6,7 @@ class Library extends React.Component {
   // parent component for Shelves
 
   render() {
-    const { books, switchToSearchPage, moveToShelf } = this.props;
+    const { books, moveToShelf } = this.props;
 
     const shelves = [
       { content: "currentlyReading", title: "Currently Reading" },
@@ -31,15 +31,6 @@ class Library extends React.Component {
             />
           ))}
         </div>
-        <div className="open-search">
-              <a
-                onClick={() =>
-                  switchToSearchPage(true)
-                }
-              >
-                Add a book
-              </a>
-            </div>
       </div>
     );
   }
