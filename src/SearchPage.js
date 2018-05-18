@@ -1,13 +1,25 @@
 import React from "react";
 import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
-import { Link} from "react-router-dom";
-import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class SearchPage extends React.Component {
-  state = {
-    results: []
-  };
+
+  constructor(props) {
+    super(props);
+    
+    /*
+    * check for the "result" key in sessionStorage
+    * if exist, then assign it to the state
+    * if does not exist, the state results' is an empty array
+    */
+    let array = JSON.parse(sessionStorage.getItem("results") || "[]");
+    this.state = {
+      results: array
+    };
+  }
+
 
   /*
 * function to update options values for every book
@@ -37,11 +49,13 @@ class SearchPage extends React.Component {
       let newState = [];
 
       BooksAPI.search(query).then(result => {
-        if (Array.isArray(result)) newState = this.updatedOptionsArray(result);
+        if (Array.isArray(result)) {
+          newState = this.updatedOptionsArray(result);
           this.setState({
             results: newState
           });
-
+          sessionStorage.setItem("query", JSON.stringify(query));
+        }
       });
     } else
       this.setState({
@@ -49,19 +63,40 @@ class SearchPage extends React.Component {
       });
   };
 
+  componentDidUpdate() {
+    /*
+    * save the results array on sessionStorage
+    * if the page is refreshing, the value stored in "results" key
+    * is used in the constructor function to set the component state
+    */
+    sessionStorage.setItem("results", JSON.stringify(this.state.results));
+  }
+
+  componentWillUnmount() {
+    /* if the user leave the page, clear all keys stored in sessionStorage
+    * this way, if the user come back, the page will display the initial state
+    */
+    sessionStorage.setItem("results", JSON.stringify([]));
+    sessionStorage.setItem("query", JSON.stringify(""));
+  }
+
   render() {
     const { results } = this.state;
     const { books, moveToShelf, addToLibrary } = this.props;
     let searchResults = results.length > 0 ? true : false;
+    let query = JSON.parse(sessionStorage.getItem("query"));
+    let placeholder = query ? query : "Search by title or author";
 
     return (
       <div className="search-books">
         <div className="search-books-bar">
-        <Link className="close-search" to="/">Close</Link>
+          <Link className="close-search" to="/">
+            Close
+          </Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"
-              placeholder="Search by title or author"
+              placeholder={placeholder}
               onChange={this.searchBooks}
             />
           </div>
@@ -91,9 +126,9 @@ class SearchPage extends React.Component {
 }
 
 SearchPage.propTypes = {
-  books:PropTypes.array,
-  moveToShelf:PropTypes.func,
-  addToLibrary:PropTypes.func
+  books: PropTypes.array,
+  moveToShelf: PropTypes.func,
+  addToLibrary: PropTypes.func
 };
 
 export default SearchPage;
