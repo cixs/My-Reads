@@ -3,7 +3,7 @@ import React from "react";
 class BookOptions extends React.Component {
 
   onShelfChanged = (book, shelf) => {
-    const { moveToShelf, addToLibrary } = this.props;
+    const { moveToShelf, addToLibrary} = this.props;
     if (book.shelf) // these are options for a book that exist in Library
       moveToShelf(book, shelf);
     else // these are options for a book in search results

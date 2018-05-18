@@ -32,26 +32,38 @@ class BooksApp extends React.Component {
       showSearchPage: show
     });
   };
-/*
-* this function is called when the user click and change the shelf for a book inside the main page
-* (book that already exist in Library)
-*/
+  /*
+   * this function is called when the user click and change the shelf for a book inside the main page
+   * (book that already exist in Library)
+   */
   moveToShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then(response => {
       // set the new value for book.shelf
       book.shelf = shelf;
-      // because book is a reference to an element of this.state.books array
-      // at this moment we could say that the state of Library is already modified
-      // then calling setState and passing as argument this.state should render the Library
-      // with all of it's children updated
-      this.setState(this.state.books);
+      if (shelf === "none") {
+        /* on this case, the book should be removed from books array
+         */
+        for (let i = 0; i < this.state.books.length; i++)
+          if (book.id === this.state.books[i].id) {
+            this.state.books.splice(i, 1);
+            break;
+          }
+        this.setState(this.state.books);
+      } else {
+        /* because book is a reference to an element of this.state.books array
+         * at this moment we could say that the state of Library is already modified
+         * then calling setState and passing as argument this.state should render the Library
+         * with all of it 's children updated
+         */
+        this.setState(this.state.books);
+      }
     });
   };
 
-/*
-* this function is called when the user click and change the shelf for a book inside the search page
-* this will add the book to the Library on the chosen shelf
-*/
+  /*
+   * this function is called when the user click and change the shelf for a book inside the search page
+   * this will add the book to the Library on the chosen shelf
+   */
   addToLibrary = (book, shelf) => {
     BooksAPI.update(book, shelf).then(response => {
       // set the  value for book.shelf
@@ -62,24 +74,24 @@ class BooksApp extends React.Component {
     });
   };
 
-  
   render() {
     const { books, showSearchPage } = this.state;
     return (
       <div className="app">
+        {" "}
         {showSearchPage ? (
           <SearchPage
-            books={books} 
+            books={books}
             switchToSearchPage={this.switchToSearchPage}
             moveToShelf={this.moveToShelf}
             addToLibrary={this.addToLibrary}
           />
         ) : (
           <div>
-            <Library books={books} moveToShelf={this.moveToShelf} />
-            <SearchButton switchToSearchPage={this.switchToSearchPage} />
+            <Library books={books} moveToShelf={this.moveToShelf} />{" "}
+            <SearchButton switchToSearchPage={this.switchToSearchPage} />{" "}
           </div>
-        )}
+        )}{" "}
       </div>
     );
   }

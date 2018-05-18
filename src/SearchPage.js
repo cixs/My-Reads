@@ -11,7 +11,7 @@ class SearchPage extends React.Component {
 * function to update options values for every book
 * displayed on search page
 * every book is checked if exist in Library (main page)
-* and, on this case, it will get the value of the corresponding book 
+* and, on this case, the book.shelf value is set as the value of shelf in the corresponding book 
 */
   updatedOptionsArray = results => {
     const { books } = this.props;
