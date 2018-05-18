@@ -1,6 +1,6 @@
 import React from "react";
 import Shelf from "./Shelf";
-
+import PropTypes from 'prop-types';
 
 class Library extends React.Component {
   // parent component for Shelves
@@ -35,5 +35,10 @@ class Library extends React.Component {
     );
   }
 }
+
+Library.propTypes = {
+  books:PropTypes.array,
+  moveToShelf:PropTypes.func
+};
 
 export default Library;

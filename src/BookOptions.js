@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 
 class BookOptions extends React.Component {
 
@@ -33,5 +35,11 @@ class BookOptions extends React.Component {
     );
   }
 }
+
+BookOptions.propTypes = {
+  book:PropTypes.object,
+  moveToShelf:PropTypes.func,
+  addToLibrary:PropTypes.func
+};
 
 export default BookOptions;

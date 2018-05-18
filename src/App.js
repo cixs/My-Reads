@@ -6,6 +6,7 @@ import SearchButton from "./SearchButton";
 import * as BooksAPI from "./BooksAPI";
 import { Route } from "react-router-dom";
 
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -88,7 +89,7 @@ class BooksApp extends React.Component {
         />
         <Route
           path="/search"
-          render={({ history }) => (
+          render={({ props}) => (
             <SearchPage
               books={books}
               moveToShelf={this.moveToShelf}

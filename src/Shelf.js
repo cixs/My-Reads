@@ -1,6 +1,6 @@
 import React from "react";
 import Book from "./Book";
-
+import PropTypes from 'prop-types';
 //split the UI into independent and reusable 'shelf' components
 
 class Shelf extends React.Component {
@@ -23,5 +23,11 @@ class Shelf extends React.Component {
     );
   }
 }
+
+Shelf.propTypes = {
+  books:PropTypes.array,
+  title: PropTypes.string,
+  moveToShelf:PropTypes.func
+};
 
 export default Shelf;

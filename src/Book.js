@@ -1,6 +1,8 @@
 import React from "react";
 import BookOptions from "./BookOptions";
 import cover_not_available from './img/cover-not-available.png'
+import PropTypes from 'prop-types';
+
 
 //split the UI into independent and reusable 'Book' components
 
@@ -39,4 +41,10 @@ class Book extends React.Component {
   }
 }
 
+Book.propTypes = {
+  book:PropTypes.object,
+  books:PropTypes.array,
+  moveToShelf:PropTypes.func,
+  addToLibrary:PropTypes.func
+};
 export default Book;
