@@ -1,20 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 class SearchButton extends React.Component {
-    render() {
-    const {switchToSearchPage} = this.props
-      return (
-        <div className="open-search">
-              <a
-                onClick={() =>
-                  switchToSearchPage(true)
-                }
-              >
-                Add a book
-              </a>
-            </div>
-      );
-    }
-  };
+  render() {
+    return (
+      <div className="open-search">
+        <Link to="/search">Search</Link>
+      </div>
+    );
+  }
+}
 
-  export default SearchButton;
+export default SearchButton;

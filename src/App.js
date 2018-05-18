@@ -1,10 +1,10 @@
 import React from "react";
-// import * as BooksAPI from './BooksAPI'
 import "./App.css";
 import Library from "./Library";
 import SearchPage from "./SearchPage";
 import SearchButton from "./SearchButton";
 import * as BooksAPI from "./BooksAPI";
+import { Route } from "react-router-dom";
 
 class BooksApp extends React.Component {
   state = {
@@ -14,8 +14,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    books: [],
-    showSearchPage: false
+    books: []
   };
 
   componentDidMount() {
@@ -32,6 +31,7 @@ class BooksApp extends React.Component {
       showSearchPage: show
     });
   };
+
   /*
    * this function is called when the user click and change the shelf for a book inside the main page
    * (book that already exist in Library)
@@ -48,15 +48,13 @@ class BooksApp extends React.Component {
             this.state.books.splice(i, 1);
             break;
           }
-        this.setState(this.state.books);
-      } else {
+      } 
         /* because book is a reference to an element of this.state.books array
-         * at this moment we could say that the state of Library is already modified
-         * then calling setState and passing as argument this.state should render the Library
-         * with all of it 's children updated
+         * the state of Library is already modified
+         * calling setState and passing as argument this.state.books should render the Library
+         * with all children updated
          */
         this.setState(this.state.books);
-      }
     });
   };
 
@@ -75,23 +73,30 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    const { books, showSearchPage } = this.state;
+    const { books } = this.state;
     return (
       <div className="app">
-        {" "}
-        {showSearchPage ? (
-          <SearchPage
-            books={books}
-            switchToSearchPage={this.switchToSearchPage}
-            moveToShelf={this.moveToShelf}
-            addToLibrary={this.addToLibrary}
-          />
-        ) : (
-          <div>
-            <Library books={books} moveToShelf={this.moveToShelf} />{" "}
-            <SearchButton switchToSearchPage={this.switchToSearchPage} />{" "}
-          </div>
-        )}{" "}
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div>
+              <Library books={books} moveToShelf={this.moveToShelf} />
+              <SearchButton />
+            </div>
+          )}
+        />
+        <Route
+          path="/search"
+          render={({ history }) => (
+            <SearchPage
+              books={books}
+              moveToShelf={this.moveToShelf}
+              addToLibrary={this.addToLibrary}
+            />
+          )}
+        />
+
       </div>
     );
   }

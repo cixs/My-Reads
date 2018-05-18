@@ -1,6 +1,8 @@
 import React from "react";
 import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
+import { Link} from "react-router-dom";
+
 
 class SearchPage extends React.Component {
   state = {
@@ -36,9 +38,10 @@ class SearchPage extends React.Component {
 
       BooksAPI.search(query).then(result => {
         if (Array.isArray(result)) newState = this.updatedOptionsArray(result);
-        this.setState({
-          results: newState
-        });
+          this.setState({
+            results: newState
+          });
+
       });
     } else
       this.setState({
@@ -48,15 +51,13 @@ class SearchPage extends React.Component {
 
   render() {
     const { results } = this.state;
-    const { books, switchToSearchPage, moveToShelf, addToLibrary } = this.props;
+    const { books, moveToShelf, addToLibrary } = this.props;
     let searchResults = results.length > 0 ? true : false;
 
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => switchToSearchPage(false)}>
-            Close
-          </a>
+        <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"
@@ -80,7 +81,7 @@ class SearchPage extends React.Component {
             </ol>
           ) : (
             <div className="search-result-error">
-              <h3> No results for this search text</h3>
+              <h3> No search results</h3>
             </div>
           )}
         </div>
