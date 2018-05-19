@@ -1,21 +1,20 @@
 import React from "react";
-import PropTypes from 'prop-types';
-
+import PropTypes from "prop-types";
 
 class BookOptions extends React.Component {
-
   onShelfChanged = (book, shelf) => {
-    const { moveToShelf, addToLibrary} = this.props;
-    if (book.shelf) // these are options for a book that exist in Library
+    const { moveToShelf, addToLibrary } = this.props;
+    if (book.shelf)
+      // these are options for a book that exist in Library
       moveToShelf(book, shelf);
-    else // these are options for a book in search results
-      addToLibrary(book, shelf);
+    // these are options for a book in search results
+    else addToLibrary(book, shelf);
   };
 
   render() {
     const { book } = this.props;
 
-    let actualShelf = book.shelf? book.shelf : "none";
+    let actualShelf = book.shelf ? book.shelf : "none";
 
     return (
       <div className="book-shelf-changer">
@@ -37,9 +36,9 @@ class BookOptions extends React.Component {
 }
 
 BookOptions.propTypes = {
-  book:PropTypes.object,
-  moveToShelf:PropTypes.func,
-  addToLibrary:PropTypes.func
+  book: PropTypes.object,
+  moveToShelf: PropTypes.func,
+  addToLibrary: PropTypes.func
 };
 
 export default BookOptions;

@@ -1,6 +1,6 @@
 import React from "react";
 import Shelf from "./Shelf";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class Library extends React.Component {
   // parent component for Shelves
@@ -14,9 +14,7 @@ class Library extends React.Component {
       { content: "read", title: "Read" }
     ];
 
-
     return (
-
       <div className="list-books">
         <div className="list-books-title">
           <h1> MyReads </h1>
@@ -37,8 +35,8 @@ class Library extends React.Component {
 }
 
 Library.propTypes = {
-  books:PropTypes.array,
-  moveToShelf:PropTypes.func
+  books: PropTypes.array,
+  moveToShelf: PropTypes.func
 };
 
 export default Library;

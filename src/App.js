@@ -6,7 +6,6 @@ import SearchButton from "./SearchButton";
 import * as BooksAPI from "./BooksAPI";
 import { Route } from "react-router-dom";
 
-
 class BooksApp extends React.Component {
   state = {
     /**
@@ -49,13 +48,13 @@ class BooksApp extends React.Component {
             this.state.books.splice(i, 1);
             break;
           }
-      } 
-        /* because book is a reference to an element of this.state.books array
+      }
+      /* because book is a reference to an element of this.state.books array
          * the state of Library is already modified
          * calling setState and passing as argument this.state.books should render the Library
          * with all children updated
          */
-        this.setState(this.state.books);
+      this.setState(this.state.books);
     });
   };
 
@@ -89,7 +88,7 @@ class BooksApp extends React.Component {
         />
         <Route
           path="/search"
-          render={({ props}) => (
+          render={({ props }) => (
             <SearchPage
               books={books}
               moveToShelf={this.moveToShelf}
@@ -97,7 +96,6 @@ class BooksApp extends React.Component {
             />
           )}
         />
-
       </div>
     );
   }

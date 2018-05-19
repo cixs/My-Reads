@@ -42,7 +42,7 @@ class SearchPage extends React.Component {
     return updatedArray;
   };
 
-  startSearch = (query) => {
+  startSearch = query => {
     if (query) {
       let newState = [];
 
@@ -55,7 +55,7 @@ class SearchPage extends React.Component {
         }
       });
     } else
-    this.setState({
+      this.setState({
         results: []
       });
   };
