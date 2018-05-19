@@ -33,34 +33,35 @@ class BooksApp extends React.Component {
   };
 
   /*
-   * this function is called when the user click and change the shelf for a book inside the main page
-   * (book that already exist in Library)
+   * this function is called when the user click and change the shelf for a book
    */
-  moveToShelf = (book, shelf) => {
+  moveToShelf = (id, shelf) => {
+    let temp = this.state.books;
+    let index, book;
+
+    for (let i = 0; i < temp.length; i++)
+      if (id === temp[i].id) {
+        index = i;
+        book = temp[i];
+        break;
+      }
+
     BooksAPI.update(book, shelf).then(response => {
       // set the new value for book.shelf
       book.shelf = shelf;
       if (shelf === "none") {
         /* on this case, the book should be removed from books array
          */
-        for (let i = 0; i < this.state.books.length; i++)
-          if (book.id === this.state.books[i].id) {
-            this.state.books.splice(i, 1);
-            break;
-          }
+        this.state.books.splice(index, 1);
       }
-      /* because book is a reference to an element of this.state.books array
-         * the state of Library is already modified
-         * calling setState and passing as argument this.state.books should render the Library
-         * with all children updated
-         */
-      this.setState(this.state.books);
+      this.setState(temp);
     });
   };
 
   /*
-   * this function is called when the user click and change the shelf for a book inside the search page
-   * this will add the book to the Library on the chosen shelf
+   * this function is called when the user click and change the shelf for a book
+   *  inside the search page and that book doesn't exist in Library
+   * it will add the book on the chosen shelf
    */
   addToLibrary = (book, shelf) => {
     BooksAPI.update(book, shelf).then(response => {

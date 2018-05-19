@@ -64,7 +64,36 @@ class SearchPage extends React.Component {
     const query = event.target.value.trim();
     clearTimeout(this.timer);
     this.timer = setTimeout(this.startSearch(query), 500);
+    /*
+    * save the query string on sessionStorage
+    * if the page is refreshing, the value stored in "query" key
+    * is used in render function as placeholder for search input
+    */
     sessionStorage.setItem("query", JSON.stringify(query));
+  };
+
+  moveToShelf = (id, shelf) => {
+    /*
+    * search page doesn't have shelves to store books
+    * here this function will only change the option value for a book
+    * and then call the same function in the main page 
+    * to change both the option value and the shelf where the book sits
+    */
+    let temp = this.state.results;
+
+    let a = temp.find(book => {
+      return book.id === id;
+    });
+    
+    if (a) {
+      a.shelf = shelf;
+      this.setState(temp);
+    }
+
+    /*
+    * call the moveToShelf function in the main page
+    */
+    this.props.moveToShelf(id, shelf);
   };
 
   componentDidUpdate() {
@@ -86,7 +115,7 @@ class SearchPage extends React.Component {
 
   render() {
     const { results } = this.state;
-    const { books, moveToShelf, addToLibrary } = this.props;
+    const { books, addToLibrary } = this.props;
     let searchResults = results.length > 0 ? true : false;
     let query = JSON.parse(sessionStorage.getItem("query"));
     let placeholder = query ? query : "Search by title or author";
@@ -113,7 +142,7 @@ class SearchPage extends React.Component {
                   book={book}
                   books={books}
                   key={book.id}
-                  moveToShelf={moveToShelf}
+                  moveToShelf={this.moveToShelf}
                   addToLibrary={addToLibrary}
                 />
               ))}

@@ -31,8 +31,7 @@ class Book extends React.Component {
             />
           </div>
           <div className="book-title">
-            {" "}
-            {book.title ? book.title : "No title"}{" "}
+            {book.title ? book.title : "No title"}
           </div>
           <div className="book-authors">
             {book.authors
