@@ -52,7 +52,10 @@ class SearchPage extends React.Component {
           this.setState({
             results: newState
           });
-        }
+        }else
+        this.setState({
+          results: []
+        });
       });
     } else
       this.setState({

@@ -25,7 +25,9 @@ class BookOptions extends React.Component {
           onChange={event => this.onShelfChanged(book, event.target.value)}
           defaultValue={actualShelf}
         >
-          <option value="none" disabled>
+         {// <option value="none" disabled>
+         }
+         <option value="move-to" disabled>
             Move to...
           </option>
           <option value="currentlyReading"> Currently Reading </option>
