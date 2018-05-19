@@ -102,7 +102,7 @@ body, .app {
 }
 
 .search-books-results {
-  padding: 80px 10px 20px;
+  padding: 5px;
 }
 .search-result-error {
   padding: 5px 0;
@@ -110,7 +110,9 @@ body, .app {
   text-align: center;
   color: #000
 }
-
+.search-result-error h3{
+  margin:5px;
+}
 /* books grid */
 
 .books-grid {

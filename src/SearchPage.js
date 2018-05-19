@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 class SearchPage extends React.Component {
-
   constructor(props) {
     super(props);
-    
+
     /*
     * check for the "result" key in sessionStorage
     * if exist, then assign it to the state
@@ -20,6 +19,7 @@ class SearchPage extends React.Component {
     };
   }
 
+  timer = null;
 
   /*
 * function to update options values for every book
@@ -42,9 +42,7 @@ class SearchPage extends React.Component {
     return updatedArray;
   };
 
-  searchBooks = event => {
-    const query = event.target.value.trim();
-
+  startSearch = (query) => {
     if (query) {
       let newState = [];
 
@@ -54,13 +52,19 @@ class SearchPage extends React.Component {
           this.setState({
             results: newState
           });
-          sessionStorage.setItem("query", JSON.stringify(query));
         }
       });
     } else
-      this.setState({
+    this.setState({
         results: []
       });
+  };
+
+  searchBooks = event => {
+    const query = event.target.value.trim();
+    clearTimeout(this.timer);
+    this.timer = setTimeout(this.startSearch(query), 500);
+    sessionStorage.setItem("query", JSON.stringify(query));
   };
 
   componentDidUpdate() {
